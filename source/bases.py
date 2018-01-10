@@ -1,6 +1,10 @@
 #!python
 
 import string
+import math
+import re
+
+import string
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
 # string.hexdigits is '0123456789abcdefABCDEF'
@@ -17,11 +21,35 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
+
+    digits_length = len(digits)
+    total = 0
+
     # TODO: Decode digits from binary (base 2)
+    if base is 2:
+        for index in range(digits_length):
+            # Get the number from the binary by using the formula base^index * [value of index]
+            number = math.pow(base, index) * int(digits[-index - 1])
+            total += number
+        print(total)
+        return total
 
     # TODO: Decode digits from hexadecimal (base 16)
+    if re.search('[a-zA-z]', digits):
+        list_of_digits = list(digits)
+        for i in list_of_digits:
+            if i.isupper():
+                i = ord(i) - UCASE_SHIFT
+            elif i.islower():
+                i = ord(i) - LCASE_SHIFT
 
-    # TODO: Decode digits from any base (2 up to 36)
+    if base > 2:
+        for index in range(digits_length):
+            # Getting the number from binary by using the formula base^index * [value of index]
+            number = math.pow(base, index) * int(digits[-index - 1])
+            total += number
+        print(total)
+        return total
 
 
 def encode(number, base):
@@ -38,7 +66,21 @@ def encode(number, base):
     # TODO: Encode number in hexadecimal (base 16)
     # ...
     # TODO: Encode number in any base (2 up to 36)
-    # ...
+    if base is 16:
+        while number > 0:
+            # Get the remainder as the remainder of the actual binary digit
+            remainder = number % base
+            # set the number to be the whole number left after division
+            number = int(number/base)
+            # Insert the number into the beginning of the list (Prepend)
+            value.insert(0, remainder)
+        binary_string = ''.join(map(str, value))
+    if base > 2:
+        while number > 0:
+            remainder = number % base
+            number = int(number/base)
+
+        return binary_string
 
 
 def convert(digits, base1, base2):
@@ -77,4 +119,5 @@ def main():
 
 
 if __name__ == '__main__':
+
     main()
