@@ -35,7 +35,7 @@ def decode(digits, base):
 
 
 def encode(number, base):
-    """Encode given number in base 10 to digits in given base.
+    """Encode given number in base10 to digits in given base.
     number: int -- integer representation of number (in base 10)
     base: int -- base to convert to
     return: str -- string representation of number (in given base)"""
@@ -72,13 +72,16 @@ def convert(digits, base1, base2):
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
+    decoded = decode(digits, base1)
+    encoded = encode(decoded, base2)
+    return encoded
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     # ...
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
     # ...
+
 
 
 def main():
