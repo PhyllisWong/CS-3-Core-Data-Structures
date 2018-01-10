@@ -25,31 +25,13 @@ def decode(digits, base):
     digits_length = len(digits)
     total = 0
 
-    # TODO: Decode digits from binary (base 2)
-    if base is 2:
-        for index in range(digits_length):
-            # Get the number from the binary by using the formula base^index * [value of index]
-            number = math.pow(base, index) * int(digits[-index - 1])
-            total += number
-        print(total)
-        return total
-
-    # TODO: Decode digits from hexadecimal (base 16)
-    if re.search('[a-zA-z]', digits):
-        list_of_digits = list(digits)
-        for i in list_of_digits:
-            if i.isupper():
-                i = ord(i) - UCASE_SHIFT
-            elif i.islower():
-                i = ord(i) - LCASE_SHIFT
-
-    if base > 2:
-        for index in range(digits_length):
-            # Getting the number from binary by using the formula base^index * [value of index]
-            number = math.pow(base, index) * int(digits[-index - 1])
-            total += number
-        print(total)
-        return total
+    for i in range(digits_length):
+        # math.pow uses the formula base^index * [value of index]
+        # string.printable.index(digits[i].lower()) searches for the element, and returns the position in a list
+        # iterate from the right to left
+        total += string.printable.index(digits[i].lower()) * math.pow(base, digits_length -i -1)
+    print(total)
+    return int(total)
 
 
 def encode(number, base):
@@ -61,26 +43,23 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
-    # ...
-    # TODO: Encode number in hexadecimal (base 16)
-    # ...
-    # TODO: Encode number in any base (2 up to 36)
-    if base is 16:
-        while number > 0:
-            # Get the remainder as the remainder of the actual binary digit
-            remainder = number % base
-            # set the number to be the whole number left after division
-            number = int(number/base)
-            # Insert the number into the beginning of the list (Prepend)
-            value.insert(0, remainder)
-        binary_string = ''.join(map(str, value))
-    if base > 2:
-        while number > 0:
-            remainder = number % base
-            number = int(number/base)
 
-        return binary_string
+    value = []
+    binary_str = ''
+    # TODO: Encode number in binary (base 2)
+    # TODO: Encode number in any base (2 up to 36)
+    # TODO: Encode number in hexadecimal (base 16)
+    # while the number is still divisible
+    while number > 0:
+        # Get the remainder as the binary digit
+        remainder = number % base
+        # Reset the value of number with the division of the base
+        number = int(number/base)
+        # Prepend the remainder to the list
+        value.insert(0, remainder)
+    # Join the list after converting each digit to a string
+    binary_str = ''.join(map(str, value))
+    return binary_str
 
 
 def convert(digits, base1, base2):
