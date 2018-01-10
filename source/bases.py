@@ -1,10 +1,7 @@
 #!python
 
 import string
-import math
-import re
 
-import string
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
 # string.hexdigits is '0123456789abcdefABCDEF'
@@ -26,10 +23,10 @@ def decode(digits, base):
     total = 0
 
     for i in range(digits_length):
-        # math.pow uses the formula base^index * [value of index]
+        # pow(b, i) uses the formula b^i
         # string.printable.index(digits[i].lower()) searches for the element, and returns the position in a list
         # iterate from the right to left
-        total += string.printable.index(digits[i].lower()) * math.pow(base, digits_length -i -1)
+        total += string.printable.index(digits[i].lower()) * pow(base, digits_length -i -1)
     print(total)
     return int(total)
 
@@ -44,22 +41,38 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
 
-    value = []
-    binary_str = ''
-    # TODO: Encode number in binary (base 2)
-    # TODO: Encode number in any base (2 up to 36)
-    # TODO: Encode number in hexadecimal (base 16)
+    max_value = 0
+    digit_index = 0
+    encoded_str = ''
+
     # while the number is still divisible
-    while number > 0:
-        # Get the remainder as the binary digit
-        remainder = number % base
-        # Reset the value of number with the division of the base
-        number = int(number/base)
-        # Prepend the remainder to the list
-        value.insert(0, remainder)
-    # Join the list after converting each digit to a string
-    binary_str = ''.join(map(str, value))
-    return binary_str
+    while max_value <= number:
+        # Set max_value as base to the power of the digit's position
+        max_value = pow(base, digit_index)
+        digit_index += 1
+    # Remove the digit we added before the check / subtract another because we check against the max
+    digit_index -= 2
+
+    # Iterate from right to left through the index positions
+    for i in range(digit_index, -1, -1):
+        # The power of the index. Ex: b^i
+        power = pow(base, i)
+        # If number is greater than the value of power at the current index,
+        # continue by getting the character we need and adding it.
+        # If number is lower the value of power at the current index, add a 0.
+        if number - power >= 0:
+            remainder = power % number
+
+            if remainder < 1:
+                num_times = 1
+            else:
+                num_times = int(number/power)
+
+            encoded_str += string.printable[num_times]
+            number -= (power * num_times)
+        else:
+            encoded_str += '0'
+    return encoded_str
 
 
 def convert(digits, base1, base2):
@@ -71,17 +84,12 @@ def convert(digits, base1, base2):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
+    # Convert digits from base2 to base16 (and vice versa)
+    # Decode converts digits in any base from 2 to 36  to base10
     decoded = decode(digits, base1)
+    # Encode converts digits from base10 to any base 2 to 36.
     encoded = encode(decoded, base2)
     return encoded
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
-
 
 
 def main():
