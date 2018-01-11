@@ -16,19 +16,24 @@ def decode(digits, base):
     digits: str -- string representation of number (in given base)
     base: int -- base of given number
     return: int -- integer representation of number (in base 10)"""
+
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
 
     digits_length = len(digits)
-    total = 0
+    decoded_digit = 0
 
     for i in range(digits_length):
         # pow(b, i) uses the formula b^i
-        # string.printable.index(digits[i].lower()) searches for the element, and returns the position in a list
+        # string.printable.index(digits[i].lower()) searches for the element,
+        # and returns the position in a list
         # iterate from the right to left
-        total += string.printable.index(digits[i].lower()) * pow(base, digits_length -i -1)
-    print(total)
-    return int(total)
+        exponent = digits_length -i -1
+        power = pow(base, exponent)
+        decoded_digit += string.printable.index(digits[i].lower()) * power
+
+    print(decoded_digit)
+    return int(decoded_digit)
 
 
 def encode(number, base):
