@@ -42,32 +42,25 @@ def binary_search(array, item):
 
 
 def binary_search_iterative(array, item):
-    # TODO: implement binary search iteratively here
-    # once implemented, change binary_search to call binary_search_iterative
-    # to verify that your iterative implementation passes all tests
     array = sorted(array)
-    # print(array)
+    # set the index at the middle of the list
     index = int((len(array)-1)/2)
-    # print(index)
 
+    # if the first index place matches what we are looking for, return the position
     if array[index] == item:
         return index
-    # Keep performing the search until array[index] == item,
-    # or there are no more indexes to check
-    # print(sorted_arr[index])
+
+    # if the list is empty, return none
     if len(array) == 0:
         return None
 
+    # as long as the item at the index does not match the serach item, check if
+    # the item is bigger than or smaller than the item at the index
     while array[index] != item:
-        # Check if item is greater than or less than array[index]
-        # print(item, sorted_arr[index])
         if item > array[index]:
-            # slice array from array to index
-            # reset array with what is left
             array = array[index:]
             index = int((len(array)-1)/2)
         else:
-            print('its smaller')
             array = array[:index]
             index = int((len(array)-1)/2)
         return None
