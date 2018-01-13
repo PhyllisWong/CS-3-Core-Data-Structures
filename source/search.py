@@ -36,9 +36,8 @@ def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
     # implement binary_search_iterative and binary_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    return binary_search_iterative(array, item)
-    # return binary_search_recursive(array, item)
-    pass
+    # return binary_search_iterative(array, item)
+    return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(array, item):
@@ -58,9 +57,11 @@ def binary_search_iterative(array, item):
     # the item is bigger than or smaller than the item at the index
     while array[index] != item:
         if item > array[index]:
+            # reset array to the right side of the index to the end
             array = array[index:]
             index = int((len(array)-1)/2)
         else:
+            # reset array to the left side of the index from the beginning
             array = array[:index]
             index = int((len(array)-1)/2)
         return None
@@ -68,14 +69,34 @@ def binary_search_iterative(array, item):
 
 
 def binary_search_recursive(array, item, left=None, right=None):
-    # TODO: implement binary search recursively here
-    # once implemented, change binary_search to call binary_search_recursive
-    # to verify that your recursive implementation passes all tests
-    sorted_array = array.sort()
-    return (sorted_array)
+    array = sorted(array)
+
+    # set the base case
+    if left is None and right is None:
+        left = 0
+        print("left: {}".format(left))
+        right = len(array)-1
+        print("right: {}".format(right))
+    if left > right:
+        print(left > right)
+        return None
+    if array[0] == item:
+        return 0
+
+    mid = int(left + (right-left)/2)
+    if array[mid] == item:
+        mid
+
+    # if item is smaller than the middle, then it has to be in the left side
+    elif item < array[mid]:
+        right = mid
+        return binary_search_recursive(array, item, right-1)
+    else:
+        left = mid
+        return binary_search_recursive(array, item, left+1)
 
 
 if __name__ == '__main__':
     names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
     # linear_search(names, 'Jeremy')
-    print(binary_search_iterative(names, 'Justin'))
+    print(binary_search_recursive(names, 'Nick'))
