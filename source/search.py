@@ -89,11 +89,13 @@ def binary_search_recursive(array, item, left=None, right=None):
 
     # if item is smaller than the middle, then it has to be in the left side
     elif item < array[mid]:
+        mid -= 1
         right = mid
-        return binary_search_recursive(array, item, right-1)
+        return binary_search_recursive(array, item, left, right)
     else:
+        mid += 1
         left = mid
-        return binary_search_recursive(array, item, left+1)
+        return binary_search_recursive(array, item, left, right)
 
 
 if __name__ == '__main__':
