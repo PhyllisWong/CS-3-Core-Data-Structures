@@ -18,13 +18,16 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
+    no_punc = ''
+
     text = text.lower()
-    print(text)
-    return text == text[::-1]
+    for char in text:
+        if char in string.ascii_lowercase:
+            no_punc += char
+    no_punc = ''.join(no_punc)
+
+    print(no_punc)
+    return no_punc == no_punc[::-1]
 
 
 def is_palindrome_recursive(text, left=None, right=None):
@@ -49,6 +52,6 @@ def main():
 
 
 if __name__ == '__main__':
-    test = is_palindrome_iterative('dog god?')
-    print("Func call: {}".format(test))
-    # main()
+    # test = is_palindrome_iterative('dog god?')
+    # print("Func call: {}".format(test))
+    main()
