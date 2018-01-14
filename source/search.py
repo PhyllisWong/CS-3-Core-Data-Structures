@@ -71,34 +71,27 @@ def binary_search_iterative(array, item):
 def binary_search_recursive(array, item, left=None, right=None):
     array = sorted(array)
 
-    # set the base case
-    if left is None and right is None:
+    # set the left and the right positions to find the middle
+    if right is None:
+         right = len(array) -1
+    if left is None:
         left = 0
-        print("left: {}".format(left))
-        right = len(array)-1
-        print("right: {}".format(right))
-    if left > right:
-        print(left > right)
-        return None
-    if array[0] == item:
-        return 0
 
-    mid = int(left + (right-left)/2)
+    mid = int((right + left)//2)
+
+
+    # Return item position if it is located at the middle
     if array[mid] == item:
-        mid
-
-    # if item is smaller than the middle, then it has to be in the left side
-    elif item < array[mid]:
-        mid -= 1
-        right = mid
-        return binary_search_recursive(array, item, left, right)
+        return mid
+     # If item is less than the item at the current positition, move search area to the left
+    elif array[mid] < item:
+        return binary_search_recursive(array, item, mid+1, right)
+     # If item is greater than the item at the current positition, move search area to the right
     else:
-        mid += 1
-        left = mid
-        return binary_search_recursive(array, item, left, right)
+        return binary_search_recursive(array, item, left, mid-1)
 
 
 if __name__ == '__main__':
     names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
     # linear_search(names, 'Jeremy')
-    print(binary_search_recursive(names, 'Nick'))
+    print(binary_search_recursive(names, 'Jeremy'))
