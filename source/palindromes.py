@@ -22,6 +22,9 @@ def is_palindrome_iterative(text):
     pass
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
+    text = text.lower()
+    print(text)
+    return text == text[::-1]
 
 
 def is_palindrome_recursive(text, left=None, right=None):
@@ -46,4 +49,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    test = is_palindrome_iterative('dog god?')
+    print("Func call: {}".format(test))
+    # main()
