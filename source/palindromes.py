@@ -26,7 +26,6 @@ def is_palindrome_iterative(text):
             no_punc += char
     no_punc = ''.join(no_punc)
 
-    print(no_punc)
     return no_punc == no_punc[::-1]
 
 
