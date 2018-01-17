@@ -4,7 +4,11 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    return pattern in text
+
+    for character_index in range(len(text) - len(pattern) + 1):
+        if text[character_index:character_index + len(pattern)] == pattern:
+            return True
+    return False
 
 
 
@@ -13,23 +17,14 @@ def find_index(text, pattern):
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
 
-    pattern_size = len(pattern)
+    # look at he slice from the current index to the length of the pattern
+    # slice is exclusive, so you want to look one past the index
+    for cur_index in range(len(text) - len(pattern) +1):
+        if text[cur_index:cur_index+len(pattern)] == pattern:
+            return cur_index
 
-    print('text: {}'.format(text))
-    print('Pattern: {}'.format(pattern))
-    print('pattern size: {}\n'.format(pattern_size))
-
-    for index in range(len(text)-1):
-        # print('Each iteration: {}'.format(index))
-        # print(text[index : pattern_size])
-        if text[index:pattern_size] == pattern:
-            return index
-        else:
-            pattern_size +=1
     return None
-
 
 
 def find_all_indexes(text, pattern):
@@ -38,6 +33,18 @@ def find_all_indexes(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+
+    indexes = []
+
+    # look at he slice from the current index to the length of the pattern
+    # slice is exclusive, so you want to look one past the index
+
+    for cur_index in range(len(text)):
+        print(text[cur_index])
+        if text[cur_index : cur_index + len(pattern)] == pattern:
+            indexes.append(cur_index)
+
+    return indexes
 
 
 def test_string_algorithms(text, pattern):
