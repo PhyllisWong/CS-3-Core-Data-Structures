@@ -1,4 +1,5 @@
 #!python
+import math
 
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
@@ -9,6 +10,7 @@ def linear_search(array, item):
 
 
 def linear_search_iterative(array, item):
+    # array = sorted(array)
     for index, value in enumerate(array):
         if item == value:
             return index  # found
@@ -16,6 +18,7 @@ def linear_search_iterative(array, item):
 
 
 def linear_search_recursive(array, item, index=0):
+    # array = sorted(array)
     # not found base case
     if index > len(array) -1:
         return None
@@ -37,30 +40,37 @@ def binary_search(array, item):
 
 def binary_search_iterative(array, item):
     array = sorted(array)
-    # set the index at the middle of the list
-    mid = int((len(array)-1)/2)
+    # set the left, right, and middle
+    left = 0
+    right = len(array) -1
+    mid = int((len(array)-1) /2)
 
+    # if the left and right cross each other, we know we didn't find the item
+    if left > right or len(array) == 0:
+        return None
     # if the first index place matches what we are looking for, return the position
     if array[mid] == item:
         return mid
 
-    # if the list is empty, return none
-    if len(array) == 0:
-        return None
-
-    # as long as the item at the index does not match the serach item, check if
+    # as long as the item at the index does not match the search item, check if
     # the item is bigger than or smaller than the item at the index
-    while array[mid] != item:
-        if item > array[mid]:
+    while array[mid] != item and right != left:
+        if item < array[mid]:
             # reset array to the right side of the index to the end
-            array = array[mid:]
-            mid = int((len(array)-1)/2)
+            right = mid
+            if right - left == 1:
+                right = left
         else:
-            # reset array to the left side of the index from the beginning
-            array = array[:mid]
-            mid = int((len(array)-1)/2)
+        # reset array to the left side of the index from the beginning
+            left = mid
+            if right - left == 1:
+                left = right
+                mid = (right - left)//2
+        mid = math.ceil((right + left) /2)
+    if array[mid] == item:
+        return mid
+    else:
         return None
-    return mid
 
 
 def binary_search_recursive(array, item, left=None, right=None):

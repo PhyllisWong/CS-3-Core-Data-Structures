@@ -24,7 +24,6 @@ def is_palindrome_iterative(text):
     for char in text:
         if char in string.ascii_lowercase:
             no_punc += char
-    no_punc = ''.join(no_punc)
 
     return no_punc == no_punc[::-1]
 
