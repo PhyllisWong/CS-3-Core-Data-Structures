@@ -43,6 +43,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('Taco Cat') is True
         assert is_palindrome('Race Car') is True
         assert is_palindrome('Race Fast Safe Car') is True
+        assert is_palindrome('Anita lava la tina') is True
 
     def test_is_palindrome_with_whitespace_and_punctuation(self):
         # palindromes with whitespace and punctuation
@@ -52,6 +53,8 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('taco? cat.') is True
         assert is_palindrome('race-car!!!') is True
         assert is_palindrome('race fast, safe car...') is True
+        assert is_palindrome('marge let a moody baby doom a telegram.') is True
+
 
     def test_is_palindrome_with_mixed_casing_and_punctuation(self):
         # palindromes with whitespace, punctuation and mixed letter casing
@@ -63,6 +66,9 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('Was it a car or a cat I saw?') is True
         assert is_palindrome("Go hang a salami, I'm a lasagna hog.") is True
         assert is_palindrome('A man, a plan, a canal - Panama!') is True
+        assert is_palindrome('Lisa Bonet, ate no basil!') is True
+        assert is_palindrome('Marge let a mooDy baby dooM... a telegram. :(') is True
+
 
     def test_is_palindrome_with_non_palindromic_strings(self):
         # examples of non-palindromic strings that should be rejected
@@ -81,6 +87,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('ABCDDCBZ') is False
         assert is_palindrome('AAAAZAAA') is False
         assert is_palindrome('AAAAAAAZ') is False
+        assert is_palindrome('Lisa Bonet, ate... not any basil!') is False
 
 
 if __name__ == '__main__':
