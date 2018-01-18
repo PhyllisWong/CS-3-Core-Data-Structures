@@ -25,7 +25,6 @@ def remove_punctuation(text):
     for char in text:
         if char in string.ascii_lowercase:
             no_punc += char
-    # print(no_punc)
     return no_punc
 
 
@@ -43,22 +42,24 @@ def is_palindrome_iterative(text):
 
 
 def is_palindrome_recursive(text, left=None, right=None):
+    # set the left and right indexes for the first time the recursive call is made
     if left is None and right is None:
         left = 0
         right = len(text) -1
 
+    # Base case(1): if the string is empty
+    # Base case(2): the 2 points have met at the center
     if len(text) <= 1 or text == '':
         return True
-
     if right - left < 1:
         return True
 
-    while left <= right:
+    # As long as the points have not met in the middle, check if chars are the same
+    while left < right:
         if text[left] == text[right]:
             return is_palindrome_recursive(text, left +1, right -1)
+        # If ever the 2 chars are not the same, it is not a palindrome
         return False
-    return True
-
 
 
 def main():

@@ -5,14 +5,18 @@ def contains(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    # Set the range with length of the string - substring so you don't look out of range
-    for cur_index in range(len(text) - len(pattern) + 1):
+    for cur_index in range(len(text)):
         # look at he slice from the current index to the length of the pattern
         # slice is exclusive, so you want to look one past the index
         if text[cur_index : cur_index + len(pattern)] == pattern:
             return True
     return False
 
+
+def pattern_match(cur_index, length, text, pattern):
+
+    if text[cur_index : cur_index + len(pattern)] == pattern:
+        return True
 
 
 def find_index(text, pattern):
@@ -21,11 +25,10 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    # Set the range with length of the string - substring so you don't look out of range
-    for cur_index in range(len(text) - len(pattern) +1):
+    for cur_index in range(len(text)):
         # look at he slice from the current index to the length of the pattern
-        # slice is exclusive, so you want to look one past the index
-        if text[cur_index : cur_index+len(pattern)] == pattern:
+        # # slice is upperbound exclusive
+        if text[cur_index : cur_index + len(pattern)] == pattern:
             return cur_index
 
     return None
@@ -33,16 +36,15 @@ def find_index(text, pattern):
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
-    or an empty list if not found."""
+    or an empty list if not found. Command F does this."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
     indexes = []
 
-    # Set the range with length of the string - substring so you don't look out of range
     for cur_index in range(len(text)):
         # look at he slice from the current index to the length of the pattern
-        # slice is exclusive, so you want to look one past the index
+        # slice is upperbound exclusive
         if text[cur_index : cur_index + len(pattern)] == pattern:
             indexes.append(cur_index)
 
