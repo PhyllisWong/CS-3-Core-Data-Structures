@@ -1,33 +1,33 @@
 #!python
 
+
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    for cur_index in range(len(text)):
-        # look at he slice from the current index to the length of the pattern
-        # slice is exclusive, so you want to look one past the index
-        if text[cur_index : cur_index + len(pattern)] == pattern:
-            return True
-    return False
+    # call find_index and change the return value
+    return find_index(text, pattern) is not None
 
-
-def pattern_match(cur_index, length, text, pattern):
-
-    if text[cur_index : cur_index + len(pattern)] == pattern:
-        return True
+    # for cur_index in range(len(text)):
+    #     # look at he slice from the current index to the length of the pattern
+    #     # slice is upperbound exclusive
+    #     if text[cur_index : cur_index + len(pattern)] == pattern:
+    #         return True
+    #
+    # return False
 
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found."""
+    or None if not found. Worst case O(n) because we are creating a new array with each
+    slice."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
     for cur_index in range(len(text)):
         # look at he slice from the current index to the length of the pattern
-        # # slice is upperbound exclusive
+        # slice is upperbound exclusive
         if text[cur_index : cur_index + len(pattern)] == pattern:
             return cur_index
 
