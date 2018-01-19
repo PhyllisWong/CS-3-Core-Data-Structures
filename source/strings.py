@@ -6,7 +6,7 @@ def contains(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    # call find_index and change the return value
+    # if find_index returns an integer value, then the pattern was not found
     return find_index(text, pattern) is not None
 
     # for cur_index in range(len(text)):
@@ -20,7 +20,7 @@ def contains(text, pattern):
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found. Worst case O(n) because we are creating a new array with each
+    or None if not found. Worst case O(n) because we are creating a new string with each
     slice."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
@@ -30,7 +30,6 @@ def find_index(text, pattern):
         # slice is upperbound exclusive
         if text[cur_index : cur_index + len(pattern)] == pattern:
             return cur_index
-
     return None
 
 
@@ -82,4 +81,4 @@ def main():
 
 if __name__ == '__main__':
     print(find_index('bananas', 'nas'))
-    # main()
+    main()
