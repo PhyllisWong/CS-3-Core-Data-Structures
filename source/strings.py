@@ -20,7 +20,8 @@ def contains(text, pattern):
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found. Worst case O(n) because we are creating a new string with each
+    or None if not found. n is the number of iterations in the loop, l is the length
+    of the pattern. Worst case: O(l(n-l)) because we are creating a new string with each
     slice."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
