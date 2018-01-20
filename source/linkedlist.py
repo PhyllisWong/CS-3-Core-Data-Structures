@@ -76,7 +76,6 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
         node = self.head
 
         # traverse the linked list until the index, return the data
@@ -93,7 +92,6 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
 
         if index == 0:
             # creates a new node and adds it to the beginning
@@ -173,6 +171,48 @@ class LinkedList(object):
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
         pass
+        # iterate until you find the old_item
+        # print('Linked list: {}'.format(self))
+        new_node = Node(new_item)
+        # print('Old item: {}'.format(old_item))
+        # print('New item: {}'.format(new_node))
+        node = self.head # start at the beginning
+        previous = None
+        found = False
+        node_index = 0
+        # Loop until we have found the given item or the node is None
+        while not found and node is not None:
+            # Check if the node's data matches the given item
+            if node.data == old_item:
+                found = True
+            else:
+                # Skip to the next node
+                previous = node
+                node = node.next
+                node_index += 1
+            # insert at index
+        # Check if we found the given item or we never did and reached the tail
+        if found:
+            # Check if we found a node in the middle of this linked list
+            if node is not self.head and node is not self.tail:
+
+                self.insert_at_index(node_index, new_item)
+                self.delete(old_item)
+
+            # Check if we found a node at the head
+            if node is self.head:
+                self.insert_at_index(0, new_item)
+                self.delete(old_item)
+
+            # Check if we found a node at the tail
+            if node is self.tail:
+                self.insert_at_index(self.size-1, new_item)
+                self.delete(old_item)
+        else:
+            # Otherwise raise an error to tell the user that delete has failed
+            raise ValueError('Item not found: {}'.format(old_item))
+                # delete at old_index
+
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
