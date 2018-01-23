@@ -1,6 +1,7 @@
 #!python
 
 from linkedlist import LinkedList
+from pprint import pprint
 
 
 class HashTable(object):
@@ -8,6 +9,8 @@ class HashTable(object):
     def __init__(self, init_size=8):
         """Initialize this hash table with the given initial size."""
         self.buckets = [LinkedList() for i in range(init_size)]
+        # pprint(self.buckets)
+        # print('LEN: ', len(self.buckets))
         self.size = 0  # Number of key-value entries
 
     def __str__(self):
@@ -120,7 +123,7 @@ class HashTable(object):
         if self.load_factor() > 0.75:
 
             # TODO: If so, automatically resize to reduce the load factor
-            self._resize(self.buckets * 2)
+            self._resize()  # len(self.buckets) * 2)
 
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
@@ -144,26 +147,31 @@ class HashTable(object):
         such as 0.75 after an insertion (when set is called with a new key).
         Best and worst case running time: ??? under what conditions? [TODO]
         Best and worst case space usage: ??? what uses this memory? [TODO]"""
+
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
         # Option to reduce size if buckets are sparsely filled (low load factor)
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
-
         # Get a list to temporarily hold all current key-value entries
         # iterate through the hashtable, and store in a linked list.
+        print('HERE: {}'.format(new_size))
+        pprint(new_size)
         temp_list = self.items()
 
-        self.buckets = [LinkedList() for i in range(len(new_size))]
+        self.buckets = [LinkedList() for i in range(new_size)]
         self.size = 0
 
         # Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
         for key, value in temp_list:
-            bucket_index = self._bucket_index(key)
-            self.buckets[bucket_index].append((key, value))
-            self.size += 1
+            self.set(key, value)
+            # FIX ME refactor
+            # bucket_index = self._bucket_index(key)
+            # bucket = self.buckets[bucket_index]
+            # bucket.append((key, value))
+            # self.size += 1
 
 
 def test_hash_table():
@@ -196,6 +204,7 @@ def test_hash_table():
     print('contains(X): ' + str(ht.contains('X')))
     print('contains(Z): ' + str(ht.contains('Z')))
 
+    return
     print('Deleting entries:')
     ht.delete('I')
     print('delete(I): ' + str(ht))
