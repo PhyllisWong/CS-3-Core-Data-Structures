@@ -42,20 +42,20 @@ class LinkedStack(object):
         if self.is_empty():
             return None
 
-        node = self.list.head.data
-        return node
+        first_item = self.list.head.data
+        return first_item
 
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) to get the node & O(1) to delete."""
 
         if self.length() == 0:
             raise ValueError('Stack is empty')
 
-        node = self.list.head.data
-        self.list.delete(node)
-        return node
+        first_item = self.list.head.data
+        self.list.delete(first_item)
+        return first_item
 
 
 # Implement ArrayStack below, then change the assignment at the bottom
@@ -84,24 +84,25 @@ class ArrayStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
-        self.list.insert(0, item)
+        Running time: O(1) because we know the beginning.
+        We do have to push everything down one index."""
+        self.list.append(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         if not self.is_empty():
-            return self.list[0]
+            return self.list[len(self.list) -1]
         return None
 
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) because we only perform one operation."""
         if self.is_empty():
             raise ValueError('Stack is empty')
 
-        removed = self.list.pop(0)
+        removed = self.list.pop(len(self.list) -1)
         return removed
 
 
