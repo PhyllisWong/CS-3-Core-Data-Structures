@@ -1,6 +1,6 @@
 #!python
 
-from hashtable import HashTable
+from set import Set
 import unittest
 # Python 2 and 3 compatibility: unittest module renamed this assertion method
 if not hasattr(unittest.TestCase, 'assertCountEqual'):
@@ -10,7 +10,8 @@ if not hasattr(unittest.TestCase, 'assertCountEqual'):
 class SetTest(unittest.TestCase):
 
     def test_init(self):
-        pass
+        test_set = Set([1])
+        assert test_set.size == 1
 
     def test_add(self):
         pass
