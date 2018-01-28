@@ -30,6 +30,7 @@ class Set(object):
         # Use hashtable set func, takes a key, value pair
         if element not in self.data.keys():
             self.data.set(element, None)
+            self.size += 1
 
     def remove(self, element):
         '''Remove element from this set, if present, or else raise KeyError.'''
