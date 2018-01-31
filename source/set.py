@@ -2,18 +2,21 @@
 
 from pprint import pprint
 from hashtable import HashTable
+from linkedlist import LinkedList
 
 class Set(object):
 
     def __init__(self, elements=None):
         '''Initialize a new empty set structure, and add each element if a sequence is given.'''
+        self.data = HashTable(8)
         self.size = 0  # Number of entries
 
-        if elements is None:
-            # Hashtable initializes with 8 buckets if elements=None
-            self.data = HashTable()
-        else:
-            self.data = HashTable(len(elements))
+        # if elements is None:
+        #     # Hashtable initializes with 8 buckets if elements=None
+        #     self.buckets = [LinkedList() for i in range(elements)]
+        # else:
+        #     self.data = HashTable(len(elements))
+        print(self.data)
 
     def __repr__(self):
         '''Return a string representation of this hash table.'''
