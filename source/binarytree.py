@@ -116,6 +116,28 @@ class BinarySearchTree(object):
         # Increase the tree size
         self.size += 1
 
+
+    def delete(self, item):
+        '''Insert the given item in order into this binary search tree.'''
+        # Handle the case where the tree is empty
+        if self.is_empty():
+            raise ValueError('Tree is empty')
+        # Check to see that the tree contains the item
+        if self.contains(item):
+
+            # Find the parent node if the wher the given item should be deleted
+            parent = self._find_parent_node(item)
+            # Check if the item is smaller than the parent
+            if item < parent.data:
+                if child.left is None and child.right is None:
+                    parent.left = None
+
+            elif item > parent.data:
+                if child.left is None and child.right is None:
+                    parent.right = None
+
+        self.size -= 1
+
     def _find_node(self, item):
         """Return the node containing the given item in this binary search tree,
         or None if the given item is not found.
@@ -152,7 +174,7 @@ class BinarySearchTree(object):
         # Loop until we descend past the closest leaf node
         while node is not None:
             # Check if the given item matches the node's data
-            if item is node.data:
+            if item == node.data:
                 # Return the parent of the found node
                 return parent
             # Check if the given item is less than the node's data
@@ -181,15 +203,17 @@ class BinarySearchTree(object):
 
     def _traverse_in_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive in-order traversal (DFS)
-        Inorder (Left, Root, Right).
+        In-order (Left, Root, Right).
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # Traverse left subtree, if it exists
         if node.left is not None:
             self._traverse_in_order_recursive(node.left, visit)
+
         # Visit this node's data with given function
         visit(node.data)
+
         # Traverse right subtree, if it exists
         if node.right is not None:
             self._traverse_in_order_recursive(node.right, visit)
@@ -212,15 +236,17 @@ class BinarySearchTree(object):
 
     def _traverse_pre_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive pre-order traversal (DFS)
-        Preorder (Root, Left, Right).
+        Pre-order (Root, Left, Right).
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # Visit this node's data with given function
         visit(node.data)
+
         # Traverse left subtree, if it exists
         if node.left is not None:
             return self._traverse_pre_order_recursive(node.left, visit)
+
         # Traverse right subtree, if it exists
         if node.right is not None:
             return self._traverse_pre_order_recursive(node.right, visit)
@@ -239,20 +265,27 @@ class BinarySearchTree(object):
             # Traverse tree post-order from root, appending each node's item
             self._traverse_post_order_recursive(self.root, items.append)
         # Return post-order list of all items in tree
+        print("Items: {}".format(items))
         return items
 
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
-        Postorder (Left, Right, Root).
+        Post-order (Left, Right, Root).
         Start at the given node and visit each node with the given function.
+        A node visitor base class that walks the abstract syntax tree and calls a
+        visitor function for every node found. This function may return a value
+        which is forwarded by the visit() method.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
+
         # Traverse left subtree, if it exists
         if node.left is not None:
             return self._traverse_post_order_recursive(node.left, visit)
+
         # Traverse right subtree, if it exists
         if node.right is not None:
             return self._traverse_post_order_recursive(node.right, visit)
+
         # Visit this node's data with given function
         visit(node.data)
 
