@@ -5,7 +5,11 @@ def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check that all adjacent items are in order, return early if not
+    # Check that all adjacent items are in order, return early if not
+    for i in range(len(items)-2):
+        if items[i] > items[i+1]:
+            return False
+    return True
 
 
 def bubble_sort(items):
@@ -15,6 +19,23 @@ def bubble_sort(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Repeat until all items are in sorted order
     # TODO: Swap adjacent items that are out of order
+    count = 1
+    if is_sorted(items) is False:
+        # print("Not sorted")
+        for i in range(0, len(items)-2):
+            # print("Before the swap: {} {}".format(items[i], items[i+1]))
+            temp = items[i]
+
+            if items[i] > items[i+1]:
+                temp = items[i+1]
+                items[i+1] = items[i]
+                items[i] = temp
+                # print("After: {} {}\n".format(items[i], items[i+1]))
+
+        # exit this block and go back to line 23 to check if it is sorted
+        count += 1
+        bubble_sort(items)
+    return items
 
 
 def selection_sort(items):
@@ -132,8 +153,10 @@ def main():
         return
 
     # Test sort function
-    test_sorting(sort_function, num_items, max_value)
+    test1 = test_sorting(sort_function, num_items, max_value)
+    print('Test sorting: {!r}'.format(test1))
 
 
 if __name__ == '__main__':
     main()
+    # print("HERE")
