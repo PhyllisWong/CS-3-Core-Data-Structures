@@ -21,17 +21,12 @@ def bubble_sort(items):
     # TODO: Swap adjacent items that are out of order
     count = 1
     if is_sorted(items) is False:
-        # print("Not sorted")
         for i in range(0, len(items)-2):
-            # print("Before the swap: {} {}".format(items[i], items[i+1]))
             temp = items[i]
-
             if items[i] > items[i+1]:
                 temp = items[i+1]
                 items[i+1] = items[i]
                 items[i] = temp
-                # print("After: {} {}\n".format(items[i], items[i+1]))
-
         # exit this block and go back to line 23 to check if it is sorted
         count += 1
         bubble_sort(items)
