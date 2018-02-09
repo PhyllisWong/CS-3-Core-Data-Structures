@@ -19,18 +19,19 @@ def bubble_sort(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Repeat until all items are in sorted order
     # TODO: Swap adjacent items that are out of order
-    count = 1
+
     if is_sorted(items) is False:
-        for i in range(0, len(items)-2):
+        # range is exclusive
+        for i in range(0, len(items)-1):
             temp = items[i]
+
             if items[i] > items[i+1]:
                 temp = items[i+1]
                 items[i+1] = items[i]
                 items[i] = temp
+
         # exit this block and go back to line 23 to check if it is sorted
-        count += 1
         bubble_sort(items)
-    return items
 
 
 def selection_sort(items):
@@ -38,9 +39,29 @@ def selection_sort(items):
     unsorted item, and repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
+
     # TODO: Repeat until all items are in sorted order
     # TODO: Find minimum item in unsorted items
     # TODO: Swap it with first unsorted item
+
+    _index = 0
+    if is_sorted is False:
+        smallest = items[_index]
+        temp = items[0]
+        swap_index = 0
+
+        for i in range(_index, len(items)):
+            if items[i] < smallest:
+                smallest = items[i]
+                swap_index = i
+        # preserve the value to swap with the smallest
+        temp = items[_index]
+        # perform the swap
+        items[_index] = smallest
+        items[swap_index] = items[_index]
+        _index += 1
+        selection_sort(items)
+    _index = 0
 
 
 def insertion_sort(items):
