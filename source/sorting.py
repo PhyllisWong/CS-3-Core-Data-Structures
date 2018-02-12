@@ -60,9 +60,6 @@ def insertion_sort(items):
     order in front of items, and repeating until all items are in order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Take first unsorted item
-    # TODO: Insert it in sorted order in front of items
 
     #we start loop at second element (index 1) since the first item is already sorted
     for j in range(1,len(items)):
@@ -75,12 +72,6 @@ def insertion_sort(items):
             i = i-1 #observe the next item for next time.
         #okay i is not greater than key means key belongs at i+1
         items[i+1] = key
-'''
-Steps to the divide/conqure concept
-Divide : split the input array into equal sized halves
-Conquer
-Combine
-'''
 
 
 def merge(items1, items2):
@@ -88,9 +79,29 @@ def merge(items1, items2):
     and return a new list containing all items in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+
+    items1_index = 0
+    items2_index = 0
+    merged_list = []
+
+    # Find minimum item in both lists
+    # Repeat until one list is empty
+    while items1_index < len(items1) and items2_index < len(items2):
+        if items1[items1_index] < items2[items2_index]:
+            merged_list.append(items1[items1_index])
+            items1_index += 1
+        else:
+            merged_list.append(items2[items2_index])
+            items2_index += 1
+
+    # Append remaining items in non-empty list to new list
+    if items1_index == len(items1):
+        for i in items2[items2_index:]:
+            merged_list.append(i)
+    else:
+        for j in items1[items1_index:]:
+            merged_list.append(j)
+    return merged_list
 
 
 def split_sort_merge(items):
@@ -99,9 +110,17 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half using any other sorting algorithm
-    # TODO: Merge sorted halves into one list in sorted order
+    # Split items list into approximately equal halves
+    middle_index = len(items)//2
+    itemsL = items[: middle_index]
+    itemsR = items[middle_index :]
+
+    # Sort each half using any other sorting algorithm
+    selection_sort(itemsL)
+    selection_sort(itemsR)
+
+    # Merge sorted halves into one list in sorted order
+    items[:] = merge(itemsL, itemsR)
 
 
 def merge_sort(items):
