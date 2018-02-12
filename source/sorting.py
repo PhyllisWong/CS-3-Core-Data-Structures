@@ -44,24 +44,19 @@ def selection_sort(items):
     # TODO: Find minimum item in unsorted items
     # TODO: Swap it with first unsorted item
 
-    _index = 0
-    if is_sorted is False:
-        smallest = items[_index]
-        temp = items[0]
-        swap_index = 0
+    for i in range(len(items)):
+        #track the current smallest value
+        smallest_index = i
+        #loop from the current smallest value
+        for j in range(i+1,len(items)):
+            if items[j] < items[smallest_index]:
+                #if new value is less that our smallest value,change
+                #smallest value to this
+                smallest_index = j
+        if smallest_index != i:
+            #swap the values
+            items[smallest_index], items[i] = items[i], items[smallest_index]
 
-        for i in range(_index, len(items)):
-            if items[i] < smallest:
-                smallest = items[i]
-                swap_index = i
-        # preserve the value to swap with the smallest
-        temp = items[_index]
-        # perform the swap
-        items[_index] = smallest
-        items[swap_index] = items[_index]
-        _index += 1
-        selection_sort(items)
-    _index = 0
 
 
 def insertion_sort(items):
@@ -72,6 +67,13 @@ def insertion_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
+
+'''
+Steps to the divide/conqure concept
+Divide : split the input array into equal sized halves
+Conquer
+Combine
+'''
 
 
 def merge(items1, items2):
@@ -126,6 +128,7 @@ def test_sorting(sort=bubble_sort, num_items=20, max_value=50):
     sort(items)
     print('Sorted items:  {!r}'.format(items))
     print('Sorted order?  {!r}'.format(is_sorted(items)))
+    return (is_sorted(items))
 
 
 def main():
