@@ -6,7 +6,7 @@ def is_sorted(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Check that all adjacent items are in order, return early if not
-    for i in range(len(items)-2):
+    for i in range(0, len(items)-1):
         if items[i] > items[i+1]:
             return False
     return True
@@ -80,8 +80,10 @@ def merge(items1, items2):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
 
-    items1_index = 0
-    items2_index = 0
+    if items1 is None or items2 is None:
+        return items1 or items2
+
+    items1_index, items2_index = 0, 0
     merged_list = []
 
     # Find minimum item in both lists
@@ -112,15 +114,15 @@ def split_sort_merge(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Split items list into approximately equal halves
     middle_index = len(items)//2
-    itemsL = items[: middle_index]
-    itemsR = items[middle_index :]
+    left = items[: middle_index]
+    right = items[middle_index :]
 
     # Sort each half using any other sorting algorithm
-    selection_sort(itemsL)
-    selection_sort(itemsR)
+    selection_sort(left)
+    selection_sort(right)
 
     # Merge sorted halves into one list in sorted order
-    items[:] = merge(itemsL, itemsR)
+    items[:] = merge(left, right)
 
 
 def merge_sort(items):
@@ -128,10 +130,17 @@ def merge_sort(items):
     sorting each recursively, and merging results into a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check if list is so small it's already sorted (base case)
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half by recursively calling merge sort
-    # TODO: Merge sorted halves into one list in sorted order
+    # Check if list is so small it's already sorted (base case)
+    if len(items) < 2:
+        return items
+
+    # Split items list into approximately equal halves
+    middle = len(items)//2
+    # Sort each half by recursively calling merge sort
+    left = merge_sort(items[:middle])
+    right = merge_sort(items[middle:])
+    # Merge sorted halves into one list in sorted order
+    items = merge(left, right)
 
 
 def random_ints(count=20, min=1, max=50):
