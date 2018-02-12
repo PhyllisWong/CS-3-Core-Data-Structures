@@ -80,30 +80,25 @@ def merge(items1, items2):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
 
-    if items1 is None or items2 is None:
-        return items1 or items2
+    left, right = items1, items2
 
-    items1_index, items2_index = 0, 0
-    merged_list = []
+    if not len(left) or not len(right):
+        return left or right
 
-    # Find minimum item in both lists
-    # Repeat until one list is empty
-    while items1_index < len(items1) and items2_index < len(items2):
-        if items1[items1_index] < items2[items2_index]:
-            merged_list.append(items1[items1_index])
-            items1_index += 1
+    result = []
+    i, j = 0, 0
+
+    while (len(result) < len(left) + len(right)):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i+= 1
         else:
-            merged_list.append(items2[items2_index])
-            items2_index += 1
-
-    # Append remaining items in non-empty list to new list
-    if items1_index == len(items1):
-        for i in items2[items2_index:]:
-            merged_list.append(i)
-    else:
-        for j in items1[items1_index:]:
-            merged_list.append(j)
-    return merged_list
+            result.append(right[j])
+            j+= 1
+        if i == len(left) or j == len(right):
+            result.extend(left[i:] or right[j:])
+            break
+    return result
 
 
 def split_sort_merge(items):
@@ -113,13 +108,14 @@ def split_sort_merge(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Split items list into approximately equal halves
-    middle_index = len(items)//2
-    left = items[: middle_index]
-    right = items[middle_index :]
+    middle = len(items)//2
+
+    left = items[: middle]
+    right = items[middle :]
 
     # Sort each half using any other sorting algorithm
-    selection_sort(left)
-    selection_sort(right)
+    insertion_sort(left)
+    insertion_sort(right)
 
     # Merge sorted halves into one list in sorted order
     items[:] = merge(left, right)
