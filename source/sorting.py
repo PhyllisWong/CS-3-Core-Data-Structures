@@ -40,18 +40,14 @@ def selection_sort(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
 
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Find minimum item in unsorted items
-    # TODO: Swap it with first unsorted item
-
     for i in range(len(items)):
-        #track the current smallest value
+        # track the current smallest value
         smallest_index = i
-        #loop from the current smallest value
+        # loop from the current smallest value
         for j in range(i+1,len(items)):
             if items[j] < items[smallest_index]:
-                #if new value is less that our smallest value,change
-                #smallest value to this
+                # if new value is less that our smallest value,
+                # change smallest value to this
                 smallest_index = j
         if smallest_index != i:
             #swap the values
@@ -68,6 +64,17 @@ def insertion_sort(items):
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
 
+    #we start loop at second element (index 1) since the first item is already sorted
+    for j in range(1,len(items)):
+        key = items[j] #The next item we are going to insert into the sorted section of the array
+
+        i = j-1 #the last item we are going to compare to
+        #now we keep moving the key back as long as it is smaller than the last item in the array
+        while (i > -1) and key < items[i]: #if i == -1 means that this key belongs at the start
+            items[i+1] = items[i] #move the last object compared one step ahead to make room for key
+            i = i-1 #observe the next item for next time.
+        #okay i is not greater than key means key belongs at i+1
+        items[i+1] = key
 '''
 Steps to the divide/conqure concept
 Divide : split the input array into equal sized halves
@@ -123,11 +130,11 @@ def test_sorting(sort=bubble_sort, num_items=20, max_value=50):
     print('Sorted order?  {!r}'.format(is_sorted(items)))
 
     # Change this sort variable to the sorting algorithm you want to test
-    # sort = bubble_sort
+    # sort = selection_sort
     print('Sorting items with {}(items)'.format(sort.__name__))
     sort(items)
     print('Sorted items:  {!r}'.format(items))
-    print('Sorted order?  {!r}'.format(is_sorted(items)))
+    print('Sorted order?  {!r}\n'.format(is_sorted(items)))
     return (is_sorted(items))
 
 
