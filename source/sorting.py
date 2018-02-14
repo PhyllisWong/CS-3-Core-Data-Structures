@@ -1,4 +1,5 @@
 #!python
+from binarytree import BinarySearchTree
 
 
 def is_sorted(items):
@@ -61,17 +62,22 @@ def insertion_sort(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
 
-    #we start loop at second element (index 1) since the first item is already sorted
-    for j in range(1,len(items)):
-        key = items[j] #The next item we are going to insert into the sorted section of the array
+    # start loop at second element since the first item is already sorted
+    for j in range(1, len(items)):
+        # The item we are going to insert into the sorted section of the array
+        unsorted_item = items[j]
 
-        i = j-1 #the last item we are going to compare to
-        #now we keep moving the key back as long as it is smaller than the last item in the array
-        while (i > -1) and key < items[i]: #if i == -1 means that this key belongs at the start
-            items[i+1] = items[i] #move the last object compared one step ahead to make room for key
-            i = i-1 #observe the next item for next time.
-        #okay i is not greater than key means key belongs at i+1
-        items[i+1] = key
+        # the index we compare with unsorted_item
+        i = j-1
+        # keep moving the unsorted_item to the left as long as it's smaller than
+        # the last item in the sorted array
+        #if i == -1 means that this key belongs at the start
+        while (i > -1) and unsorted_item < items[i]:
+            # move the last object compared one step ahead to make room for unsorted
+            items[i+1] = items[i]
+            i -= 1
+        # i is not greater than unsorted, means unsorted_item belongs at i+1
+        items[i+1] = unsorted_item
 
 
 def merge(items1, items2):
@@ -83,22 +89,24 @@ def merge(items1, items2):
     left, right = items1, items2
 
     if not len(left) or not len(right):
-        return left or right
+        return right or left
 
-    result = []
-    i, j = 0, 0
+    merged_list = []
+    left_index, right_index = 0, 0
 
-    while (len(result) < len(left) + len(right)):
-        if left[i] < right[j]:
-            result.append(left[i])
-            i+= 1
+    while (len(merged_list) < len(left) + len(right)):
+        if left[left_index] < right[right_index]:
+            merged_list.append(left[left_index])
+            left_index += 1
         else:
-            result.append(right[j])
-            j+= 1
-        if i == len(left) or j == len(right):
-            result.extend(left[i:] or right[j:])
+            merged_list.append(right[right_index])
+            right_index += 1
+
+        if left_index == len(left) or right_index == len(right):
+            merged_list.extend(left[left_index:] or right[right_index:])
             break
-    return result
+
+    return merged_list
 
 
 def split_sort_merge(items):
@@ -107,17 +115,17 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # Split items list into approximately equal halves
-    middle = len(items)//2
 
+    # Divide items list into approximately equal halves
+    middle = len(items)//2
     left = items[: middle]
     right = items[middle :]
 
-    # Sort each half using any other sorting algorithm
+    # Sort each half using any sorting algorithm
     insertion_sort(left)
     insertion_sort(right)
 
-    # Merge sorted halves into one list in sorted order
+    # Combine sorted halves into one sorted list
     items[:] = merge(left, right)
 
 
@@ -128,15 +136,29 @@ def merge_sort(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Check if list is so small it's already sorted (base case)
     if len(items) < 2:
-        return items
+        return
 
     # Split items list into approximately equal halves
     middle = len(items)//2
+    left = items[: middle]
+    right = items[middle :]
+
     # Sort each half by recursively calling merge sort
-    left = merge_sort(items[:middle])
-    right = merge_sort(items[middle:])
+    merge_sort(left)
+    merge_sort(right)
+
     # Merge sorted halves into one list in sorted order
-    items = merge(left, right)
+    items[:] = merge(left, right)
+
+
+def tree_sort(items):
+    '''Running time best and worst case running time: O(n log n).'''
+    tree = BinarySearchTree()
+
+    for i in items:
+        tree.insert(i)
+
+    return tree.items_in_order
 
 
 def random_ints(count=20, min=1, max=50):

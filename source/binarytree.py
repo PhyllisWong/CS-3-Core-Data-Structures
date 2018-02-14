@@ -98,8 +98,8 @@ class BinarySearchTree(object):
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        Best case running time: O(1)
+        Worst case running time: O(log n)"""
         # Handle the case where the tree is empty
         if self.is_empty():
             # Create a new root node
@@ -199,7 +199,9 @@ class BinarySearchTree(object):
     # This space intentionally left blank (please do not delete this comment)
 
     def items_in_order(self):
-        """Return an in-order list of all items in this binary search tree."""
+        """Return an in-order list of all items in this binary search tree.
+        Best and worst case running time: O(n) because we have to visit each item
+        exactly one time."""
         items = []
         if not self.is_empty():
             # Traverse tree in-order from root, appending each node's item
@@ -301,6 +303,7 @@ class BinarySearchTree(object):
     #     # Running time: ??? Why and under what conditions?
     #     # Memory usage: ??? Why and under what conditions?"""
     #     # Traverse post-order without using recursion (stretch challenge)
+
 
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""
