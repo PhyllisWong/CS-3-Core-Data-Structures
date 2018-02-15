@@ -161,6 +161,31 @@ def tree_sort(items):
     return tree.items_in_order
 
 
+def quicksort(items):
+    # set the base case
+    if len(items) <=1:
+        return
+
+    # collect all values lesser than and greater than the pivot
+    lesser = []
+    greater = []
+    # Set the pivot as the first item in the unsorted list
+    pivot = items[0]
+
+    # iterate over the items list
+    for i in range(1, len(items)):
+        if items[i] < pivot:
+            lesser.append(items[i])
+        else:
+            greater.append(items[i])
+    # call the func recursively
+    quicksort(lesser)
+    quicksort(greater)
+    # Concatinate the lists with the pivot in sorted order
+    items[:] = lesser + [pivot] + greater
+
+
+
 def random_ints(count=20, min=1, max=50):
     """Return a list of `count` integers sampled uniformly at random from
     given range [`min`...`max`] with replacement (duplicates are allowed)."""
