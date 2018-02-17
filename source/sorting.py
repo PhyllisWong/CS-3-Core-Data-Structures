@@ -162,6 +162,7 @@ def tree_sort(items):
 
 
 def quicksort(items):
+    """Refactor with pivot function"""
     # set the base case
     if len(items) <=1:
         return
