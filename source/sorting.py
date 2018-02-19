@@ -162,7 +162,8 @@ def tree_sort(items):
 
 
 def quicksort(items):
-    """Refactor with pivot function"""
+    """Time complexity: Best case O(n log(n)) is when the pivot is in the exact middle.
+     Worst case O(n^2) is when the pivot is either the lowest or the highest value."""
     # set the base case
     if len(items) <=1:
         return
