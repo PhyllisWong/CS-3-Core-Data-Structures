@@ -259,12 +259,6 @@ class BinarySearchTree(object):
         if node.right is not None:
             self._traverse_pre_order_recursive(node.right, visit)
 
-    # def _traverse_pre_order_iterative(self, node, visit):
-    #     """Traverse this binary tree with iterative pre-order traversal (DFS).
-    #     Start at the given node and visit each node with the given function.
-    #     # Running time: ??? Why and under what conditions?
-    #     # Memory usage: ??? Why and under what conditions?"""
-    #     # Traverse pre-order without using recursion (stretch challenge)
 
     def items_post_order(self):
         """Return a post-order list of all items in this binary search tree."""

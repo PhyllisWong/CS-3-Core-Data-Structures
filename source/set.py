@@ -16,7 +16,7 @@ class Set(object):
         #     self.buckets = [LinkedList() for i in range(elements)]
         # else:
         #     self.data = HashTable(len(elements))
-        print(self.data)
+        # print(self.data)
 
     def __repr__(self):
         '''Return a string representation of this hash table.'''

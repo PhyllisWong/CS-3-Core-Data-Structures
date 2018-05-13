@@ -51,8 +51,6 @@ class LinkedQueue(object):
         return node
 
 
-# Implement ArrayQueue below, then change the assignment at the bottom
-# to use this Queue implementation to verify it passes all tests
 class ArrayQueue(object):
 
     def __init__(self, iterable=None):

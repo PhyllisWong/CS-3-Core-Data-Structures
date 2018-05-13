@@ -94,6 +94,7 @@ def merge(items1, items2):
     merged_list = []
     left_index, right_index = 0, 0
 
+    #Assending 
     while (len(merged_list) < len(left) + len(right)):
         if left[left_index] < right[right_index]:
             merged_list.append(left[left_index])
